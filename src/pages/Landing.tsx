@@ -25,7 +25,7 @@ const Landing = () => {
         >
           <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 mb-6">
             <Sparkles className="h-4 w-4 text-primary" />
-            <span className="text-sm font-medium text-primary">AI-Powered Business Tracker</span>
+            <span className="text-sm font-medium text-primary">AI-Powered Daily Business Tracker</span>
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-foreground mb-4 leading-tight">

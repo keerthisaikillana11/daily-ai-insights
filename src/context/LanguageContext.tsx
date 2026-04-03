@@ -29,7 +29,7 @@ const translations: Record<string, Record<Language, string>> = {
   suggestions: { english: "AI Suggestions", telugu: "AI సూచనలు" },
   weeklyProfitLoss: { english: "Weekly Profit/Loss", telugu: "వారపు లాభం/నష్టం" },
   languagePreferences: { english: "Language Preferences", telugu: "భాషా ప్రాధాన్యతలు" },
-  landing_tagline: { english: "Daily Business Summary & Expense Tracker", telugu: "రోజువారీ వ్యాపార సారాంశం & ఖర్చుల ట్రాకర్" },
+  landing_tagline: { english: "AI Daily Business Summary & Expense Tracker", telugu: "AI రోజువారీ వ్యాపార సారాంశం & ఖర్చుల ట్రాకర్" },
   getStarted: { english: "Get Started", telugu: "ప్రారంభించండి" },
   profit: { english: "Profit", telugu: "లాభం" },
   loss: { english: "Loss", telugu: "నష్టం" },
