@@ -70,9 +70,24 @@ const DaySummaryModal = ({ summary, aiSummary, aiLoading, onClose }: Props) => {
 
           {/* AI Summary Section */}
           <div className="rounded-xl bg-primary/5 border border-primary/20 p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <Sparkles className="h-4 w-4 text-primary" />
-              <span className="text-sm font-display font-bold text-primary">{t("aiInsight")}</span>
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <Sparkles className="h-4 w-4 text-primary" />
+                <span className="text-sm font-display font-bold text-primary">{t("aiInsight")}</span>
+              </div>
+              {aiSummary && (
+                <button
+                  onClick={toggleSpeech}
+                  className="rounded-lg p-1.5 hover:bg-primary/10 transition-colors"
+                  title={isSpeaking ? "Stop" : "Listen"}
+                >
+                  {isSpeaking ? (
+                    <VolumeX className="h-4 w-4 text-primary animate-pulse" />
+                  ) : (
+                    <Volume2 className="h-4 w-4 text-primary" />
+                  )}
+                </button>
+              )}
             </div>
             {aiLoading ? (
               <div className="flex items-center gap-2 text-muted-foreground">
