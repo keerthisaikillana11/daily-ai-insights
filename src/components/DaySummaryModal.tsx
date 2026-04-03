@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { X, TrendingUp, TrendingDown, Sparkles, Loader2 } from "lucide-react";
+import { X, TrendingUp, TrendingDown, Sparkles, Loader2, Volume2, VolumeX } from "lucide-react";
 import { DaySummary } from "@/context/DataContext";
 import { useLanguage } from "@/context/LanguageContext";
 import ReactMarkdown from "react-markdown";
