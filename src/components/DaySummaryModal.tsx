@@ -1,9 +1,9 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { X, TrendingUp, TrendingDown, Sparkles, Loader2, Volume2, VolumeX } from "lucide-react";
+import { X, TrendingUp, TrendingDown, Sparkles, Loader2 } from "lucide-react";
 import { DaySummary } from "@/context/DataContext";
 import { useLanguage } from "@/context/LanguageContext";
 import ReactMarkdown from "react-markdown";
+import AudioPlayer from "@/components/AudioPlayer";
 
 interface Props {
   summary: DaySummary;
@@ -15,24 +15,6 @@ interface Props {
 const DaySummaryModal = ({ summary, aiSummary, aiLoading, onClose }: Props) => {
   const { t } = useLanguage();
   const isProfit = summary.profit >= 0;
-  const [isSpeaking, setIsSpeaking] = useState(false);
-
-  const toggleSpeech = () => {
-    if (isSpeaking) {
-      window.speechSynthesis.cancel();
-      setIsSpeaking(false);
-      return;
-    }
-    if (!aiSummary) return;
-    const plainText = aiSummary.replace(/[#*_~`>\-]/g, "").replace(/\n+/g, " ");
-    const utterance = new SpeechSynthesisUtterance(plainText);
-    utterance.lang = "en-US";
-    utterance.rate = 0.95;
-    utterance.onend = () => setIsSpeaking(false);
-    utterance.onerror = () => setIsSpeaking(false);
-    window.speechSynthesis.speak(utterance);
-    setIsSpeaking(true);
-  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/20 backdrop-blur-sm" onClick={onClose}>
@@ -70,24 +52,9 @@ const DaySummaryModal = ({ summary, aiSummary, aiLoading, onClose }: Props) => {
 
           {/* AI Summary Section */}
           <div className="rounded-xl bg-primary/5 border border-primary/20 p-4">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <Sparkles className="h-4 w-4 text-primary" />
-                <span className="text-sm font-display font-bold text-primary">{t("aiInsight")}</span>
-              </div>
-              {aiSummary && (
-                <button
-                  onClick={toggleSpeech}
-                  className="rounded-lg p-1.5 hover:bg-primary/10 transition-colors"
-                  title={isSpeaking ? "Stop" : "Listen"}
-                >
-                  {isSpeaking ? (
-                    <VolumeX className="h-4 w-4 text-primary animate-pulse" />
-                  ) : (
-                    <Volume2 className="h-4 w-4 text-primary" />
-                  )}
-                </button>
-              )}
+            <div className="flex items-center gap-2 mb-2">
+              <Sparkles className="h-4 w-4 text-primary" />
+              <span className="text-sm font-display font-bold text-primary">{t("aiInsight")}</span>
             </div>
             {aiLoading ? (
               <div className="flex items-center gap-2 text-muted-foreground">
@@ -95,9 +62,12 @@ const DaySummaryModal = ({ summary, aiSummary, aiLoading, onClose }: Props) => {
                 <span className="text-sm">{t("generatingSummary")}</span>
               </div>
             ) : aiSummary ? (
-              <div className="text-sm text-card-foreground prose prose-sm max-w-none">
-                <ReactMarkdown>{aiSummary}</ReactMarkdown>
-              </div>
+              <>
+                <div className="text-sm text-card-foreground prose prose-sm max-w-none">
+                  <ReactMarkdown>{aiSummary}</ReactMarkdown>
+                </div>
+                <AudioPlayer text={aiSummary} />
+              </>
             ) : (
               <p className="text-sm text-muted-foreground">Unable to generate AI summary.</p>
             )}
