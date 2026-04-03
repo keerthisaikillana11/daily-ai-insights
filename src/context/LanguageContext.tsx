@@ -9,7 +9,7 @@ interface LanguageContextType {
 }
 
 const translations: Record<string, Record<Language, string>> = {
-  appName: { english: "BizPulse AI", telugu: "బిజ్‌పల్స్ AI" },
+  appName: { english: "AI Vyapari", telugu: "AI వ్యాపారి" },
   home: { english: "Home", telugu: "హోమ్" },
   profile: { english: "Profile", telugu: "ప్రొఫైల్" },
   settings: { english: "Settings", telugu: "సెట్టింగ్‌లు" },
