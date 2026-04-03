@@ -99,7 +99,8 @@ const ChartTooltipContent = React.forwardRef<
       nameKey?: string;
       labelKey?: string;
     }
->(
+// @ts-ignore - recharts types mismatch
+(
   (
     {
       active,
