@@ -1,14 +1,17 @@
 import { motion } from "framer-motion";
-import { X, TrendingUp, TrendingDown } from "lucide-react";
+import { X, TrendingUp, TrendingDown, Sparkles, Loader2 } from "lucide-react";
 import { DaySummary } from "@/context/DataContext";
 import { useLanguage } from "@/context/LanguageContext";
+import ReactMarkdown from "react-markdown";
 
 interface Props {
   summary: DaySummary;
+  aiSummary: string | null;
+  aiLoading: boolean;
   onClose: () => void;
 }
 
-const DaySummaryModal = ({ summary, onClose }: Props) => {
+const DaySummaryModal = ({ summary, aiSummary, aiLoading, onClose }: Props) => {
   const { t } = useLanguage();
   const isProfit = summary.profit >= 0;
 
@@ -17,7 +20,7 @@ const DaySummaryModal = ({ summary, onClose }: Props) => {
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="bg-card rounded-2xl shadow-[var(--shadow-card-hover)] p-6 w-[90%] max-w-md"
+        className="bg-card rounded-2xl shadow-[var(--shadow-card-hover)] p-6 w-[90%] max-w-md max-h-[85vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-5">
@@ -44,6 +47,26 @@ const DaySummaryModal = ({ summary, onClose }: Props) => {
             <span className={`text-xl font-bold ${isProfit ? "text-success" : "text-destructive"}`}>
               {isProfit ? "+" : ""}₹{summary.profit.toLocaleString()}
             </span>
+          </div>
+
+          {/* AI Summary Section */}
+          <div className="rounded-xl bg-primary/5 border border-primary/20 p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <Sparkles className="h-4 w-4 text-primary" />
+              <span className="text-sm font-display font-bold text-primary">{t("aiInsight")}</span>
+            </div>
+            {aiLoading ? (
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                <span className="text-sm">{t("generatingSummary")}</span>
+              </div>
+            ) : aiSummary ? (
+              <div className="text-sm text-card-foreground prose prose-sm max-w-none">
+                <ReactMarkdown>{aiSummary}</ReactMarkdown>
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">Unable to generate AI summary.</p>
+            )}
           </div>
 
           <p className="text-xs text-muted-foreground text-center mt-2">

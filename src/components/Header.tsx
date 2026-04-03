@@ -14,7 +14,7 @@ const Header = () => {
           <Sparkles className="h-5 w-5 text-primary-foreground" />
         </div>
         <div>
-          <h1 className="text-xl font-display font-bold text-foreground">BizPulse AI</h1>
+          <h1 className="text-xl font-display font-bold text-foreground">AI Vyapari</h1>
           <p className="text-xs text-muted-foreground">Daily Business Summary & Expenses</p>
         </div>
       </div>

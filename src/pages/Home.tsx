@@ -1,20 +1,46 @@
 import { useState } from "react";
 import { ClipboardList } from "lucide-react";
+import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import InputBar from "@/components/InputBar";
 import DailyLog from "@/components/DailyLog";
 import DaySummaryModal from "@/components/DaySummaryModal";
 import { useData, DaySummary } from "@/context/DataContext";
 import { useLanguage } from "@/context/LanguageContext";
+import { supabase } from "@/integrations/supabase/client";
 
 const Home = () => {
   const { endDay } = useData();
   const { t } = useLanguage();
   const [summary, setSummary] = useState<DaySummary | null>(null);
+  const [aiSummary, setAiSummary] = useState<string | null>(null);
+  const [aiLoading, setAiLoading] = useState(false);
 
-  const handleEndDay = () => {
+  const handleEndDay = async () => {
     const s = endDay();
     setSummary(s);
+    setAiSummary(null);
+    setAiLoading(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke("day-summary", {
+        body: {
+          entries: s.entries,
+          totalSales: s.totalSales,
+          totalExpenses: s.totalExpenses,
+          profit: s.profit,
+        },
+      });
+
+      if (error) throw error;
+      setAiSummary(data.summary);
+    } catch (err: any) {
+      console.error("AI summary error:", err);
+      toast.error("Could not generate AI summary");
+      setAiSummary(null);
+    } finally {
+      setAiLoading(false);
+    }
   };
 
   return (
@@ -37,7 +63,14 @@ const Home = () => {
 
       <InputBar />
 
-      {summary && <DaySummaryModal summary={summary} onClose={() => setSummary(null)} />}
+      {summary && (
+        <DaySummaryModal
+          summary={summary}
+          aiSummary={aiSummary}
+          aiLoading={aiLoading}
+          onClose={() => setSummary(null)}
+        />
+      )}
     </div>
   );
 };

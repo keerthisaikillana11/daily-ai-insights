@@ -9,7 +9,7 @@ interface LanguageContextType {
 }
 
 const translations: Record<string, Record<Language, string>> = {
-  appName: { english: "BizPulse AI", telugu: "బిజ్‌పల్స్ AI" },
+  appName: { english: "AI Vyapari", telugu: "AI వ్యాపారి" },
   home: { english: "Home", telugu: "హోమ్" },
   profile: { english: "Profile", telugu: "ప్రొఫైల్" },
   settings: { english: "Settings", telugu: "సెట్టింగ్‌లు" },
@@ -29,13 +29,15 @@ const translations: Record<string, Record<Language, string>> = {
   suggestions: { english: "AI Suggestions", telugu: "AI సూచనలు" },
   weeklyProfitLoss: { english: "Weekly Profit/Loss", telugu: "వారపు లాభం/నష్టం" },
   languagePreferences: { english: "Language Preferences", telugu: "భాషా ప్రాధాన్యతలు" },
-  landing_tagline: { english: "Daily Business Summary & Expense Tracker", telugu: "రోజువారీ వ్యాపార సారాంశం & ఖర్చుల ట్రాకర్" },
+  landing_tagline: { english: "AI Daily Business Summary & Expense Tracker", telugu: "AI రోజువారీ వ్యాపార సారాంశం & ఖర్చుల ట్రాకర్" },
   getStarted: { english: "Get Started", telugu: "ప్రారంభించండి" },
   profit: { english: "Profit", telugu: "లాభం" },
   loss: { english: "Loss", telugu: "నష్టం" },
   sale: { english: "Sale", telugu: "అమ్మకం" },
   expense: { english: "Expense", telugu: "ఖర్చు" },
   close: { english: "Close", telugu: "మూసివేయి" },
+  aiInsight: { english: "AI Insight", telugu: "AI అంతర్దృష్టి" },
+  generatingSummary: { english: "Generating AI summary...", telugu: "AI సారాంశం రూపొందిస్తోంది..." },
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
