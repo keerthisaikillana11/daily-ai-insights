@@ -15,6 +15,24 @@ interface Props {
 const DaySummaryModal = ({ summary, aiSummary, aiLoading, onClose }: Props) => {
   const { t } = useLanguage();
   const isProfit = summary.profit >= 0;
+  const [isSpeaking, setIsSpeaking] = useState(false);
+
+  const toggleSpeech = () => {
+    if (isSpeaking) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+      return;
+    }
+    if (!aiSummary) return;
+    const plainText = aiSummary.replace(/[#*_~`>\-]/g, "").replace(/\n+/g, " ");
+    const utterance = new SpeechSynthesisUtterance(plainText);
+    utterance.lang = "en-US";
+    utterance.rate = 0.95;
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
+    window.speechSynthesis.speak(utterance);
+    setIsSpeaking(true);
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/20 backdrop-blur-sm" onClick={onClose}>
