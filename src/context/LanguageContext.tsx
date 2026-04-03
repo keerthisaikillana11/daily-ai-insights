@@ -36,6 +36,8 @@ const translations: Record<string, Record<Language, string>> = {
   sale: { english: "Sale", telugu: "అమ్మకం" },
   expense: { english: "Expense", telugu: "ఖర్చు" },
   close: { english: "Close", telugu: "మూసివేయి" },
+  aiInsight: { english: "AI Insight", telugu: "AI అంతర్దృష్టి" },
+  generatingSummary: { english: "Generating AI summary...", telugu: "AI సారాంశం రూపొందిస్తోంది..." },
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
